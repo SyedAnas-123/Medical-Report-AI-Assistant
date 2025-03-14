@@ -1,0 +1,94 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Risk Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h2 class="title">AI-Powered Medical Report Analyzer</h2>
+        <form action="/predict" method="post">
+
+            <label for="age">Enter Your Age (in years):</label>
+            <input type="number" name="age" placeholder="e.g., 45" required>
+
+            <label for="sex">Biological Sex (affects heart disease risk):</label>
+            <select name="sex" required>
+                <option value="1">Male (Higher risk at younger ages)</option>
+                <option value="0">Female (Higher risk after menopause)</option>
+            </select>
+
+            <label for="cp">Chest Pain Type:</label>
+            <select name="cp" required>
+                <option value="0">No Chest Pain</option>
+                <option value="1">Mild discomfort (e.g., during exercise)</option>
+                <option value="2">More intense pain (comes and goes)</option>
+                <option value="3">Severe, consistent pain (highest risk)</option>
+            </select>
+
+            <label for="trestbps">Resting Blood Pressure (mmHg) [Normal: 90-120]:</label>
+            <input type="number" name="trestbps" placeholder="e.g., 120" required>
+
+            <label for="chol">Total Cholesterol Level (mg/dL) [Normal: < 200]:</label>
+            <input type="number" name="chol" placeholder="e.g., 180" required>
+
+            <label for="fbs">Fasting Blood Sugar (FBS) [after 8-hour fast]:</label>
+            <select name="fbs" required>
+                <option value="0">Less than 126 mg/dL (Normal)</option>
+                <option value="1">126 mg/dL or higher (Possible diabetes)</option>
+            </select>
+
+            <label for="restecg">Resting Electrocardiogram (ECG) Results:</label>
+            <select name="restecg" required>
+                <option value="0">Normal ECG</option>
+                <option value="1">Mild abnormalities (ST-T wave changes)</option>
+                <option value="2">Possible left ventricular hypertrophy (thicker heart walls)</option>
+            </select>
+
+            <label for="thalach">Maximum Heart Rate Achieved:</label>
+            <input type="number" name="thalach" placeholder="e.g., 150" required>
+
+            <label for="exang">Exercise-Induced Angina:</label>
+            <select name="exang" required>
+                <option value="0">No (No chest pain during exercise)</option>
+                <option value="1">Yes (Chest pain or discomfort when exercising)</option>
+            </select>
+
+            <label for="oldpeak">ST Depression (Oldpeak) [Heart stress level]:</label>
+            <input type="number" step="0.1" name="oldpeak" placeholder="e.g., 1.5" required>
+
+            <label for="slope">Slope of the Peak Exercise ST Segment:</label>
+            <select name="slope" required>
+                <option value="0">Upsloping (Normal)</option>
+                <option value="1">Flat (Might indicate heart disease)</option>
+                <option value="2">Downsloping (Higher risk of heart disease)</option>
+            </select>
+
+            <label for="ca">Number of Major Blood Vessels Visible in Angiography (0-3):</label>
+            <input type="number" name="ca" min="0" max="3" placeholder="e.g., 2" required>
+
+            <label for="thal">Thalassemia (Thal) - Blood Disorder:</label>
+            <select name="thal" required>
+                <option value="3">Normal (No problem)</option>
+                <option value="6">Fixed Defect (Previous heart attack or damage)</option>
+                <option value="7">Reversible Defect (Possible heart disease, but not permanent)</option>
+            </select>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
